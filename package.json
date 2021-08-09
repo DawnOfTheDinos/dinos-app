@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile":"hardhat compile"
+    "compile": "hardhat compile"
   },
   "dependencies": {
     "ethers": "^5.4.2",
@@ -18,6 +18,8 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.2.0",
+    "@openzeppelin/hardhat-upgrades": "^1.9.0",
     "@types/react": "17.0.15",
     "chai": "^4.3.4",
     "eslint": "7.31.0",
@@ -27,6 +29,7 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "ts-node": "^10.2.0",
     "typescript": "4.3.5",
     "yarn": "^1.22.11"
   }
