@@ -1,0 +1,106 @@
+{
+  "id": "777f44514b29a184cde02a64f0ed480e",
+  "_format": "hh-sol-build-info-1",
+  "solcVersion": "0.8.0",
+  "solcLongVersion": "0.8.0+commit.c7dfd78e",
+  "input": {
+    "language": "Solidity",
+    "sources": {
+      "contracts/Dinos.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract DawnOfTheDinos { \r\n\r\n}"
+      }
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": false,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers"
+          ],
+          "": [
+            "ast"
+          ]
+        }
+      }
+    }
+  },
+  "output": {
+    "contracts": {
+      "contracts/Dinos.sol": {
+        "DawnOfTheDinos": {
+          "abi": [],
+          "evm": {
+            "bytecode": {
+              "generatedSources": [],
+              "linkReferences": {},
+              "object": "6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122034de65d7046c9b22df68d051a3166acda834194fc1794f11d32296de73de0af064736f6c63430008000033",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x3F DUP1 PUSH1 0x1D PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 CALLVALUE 0xDE PUSH6 0xD7046C9B22DF PUSH9 0xD051A3166ACDA83419 0x4F 0xC1 PUSH26 0x4F11D32296DE73DE0AF064736F6C634300080000330000000000 ",
+              "sourceMap": "60:31:0:-:0;;;;;;;;;;;;;;;;;;;"
+            },
+            "deployedBytecode": {
+              "generatedSources": [],
+              "immutableReferences": {},
+              "linkReferences": {},
+              "object": "6080604052600080fdfea264697066735822122034de65d7046c9b22df68d051a3166acda834194fc1794f11d32296de73de0af064736f6c63430008000033",
+              "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 CALLVALUE 0xDE PUSH6 0xD7046C9B22DF PUSH9 0xD051A3166ACDA83419 0x4F 0xC1 PUSH26 0x4F11D32296DE73DE0AF064736F6C634300080000330000000000 ",
+              "sourceMap": "60:31:0:-:0;;;;;"
+            },
+            "methodIdentifiers": {}
+          }
+        }
+      }
+    },
+    "sources": {
+      "contracts/Dinos.sol": {
+        "ast": {
+          "absolutePath": "contracts/Dinos.sol",
+          "exportedSymbols": {
+            "DawnOfTheDinos": [
+              2
+            ]
+          },
+          "id": 3,
+          "license": "MIT",
+          "nodeType": "SourceUnit",
+          "nodes": [
+            {
+              "id": 1,
+              "literals": [
+                "solidity",
+                "^",
+                "0.8",
+                ".0"
+              ],
+              "nodeType": "PragmaDirective",
+              "src": "33:23:0"
+            },
+            {
+              "abstract": false,
+              "baseContracts": [],
+              "contractDependencies": [],
+              "contractKind": "contract",
+              "fullyImplemented": true,
+              "id": 2,
+              "linearizedBaseContracts": [
+                2
+              ],
+              "name": "DawnOfTheDinos",
+              "nodeType": "ContractDefinition",
+              "nodes": [],
+              "scope": 3,
+              "src": "60:31:0"
+            }
+          ],
+          "src": "33:58:0"
+        },
+        "id": 0
+      }
+    }
+  }
+}

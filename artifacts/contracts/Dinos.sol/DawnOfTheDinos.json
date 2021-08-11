@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "DawnOfTheDinos",
+  "sourceName": "contracts/Dinos.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122034de65d7046c9b22df68d051a3166acda834194fc1794f11d32296de73de0af064736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122034de65d7046c9b22df68d051a3166acda834194fc1794f11d32296de73de0af064736f6c63430008000033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
