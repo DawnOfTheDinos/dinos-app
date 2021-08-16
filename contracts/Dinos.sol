@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-//TODO
-//Uncomment the ether part in the mint function, since it is disabled for testing
+
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -11,8 +10,9 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 // TODO breeding contract
 // TODO comet shards contract
-// TODO unit tests, cleanup
+//TODO Uncomment the ether part in the mint function, since it is disabled for testing
 // TODO ipfs provenance hash (?)
+// TODO decide final %
 contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
     using SafeMath for uint256;
     string private _baseTokenURI;
@@ -80,7 +80,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         return _price;
     }
 
-    // TODO decide final %
+
     function withdrawBalance() public payable onlyOwner {
         require(address(this).balance > 0);
         require(payable(king).send(address(this).balance.div(100))); // 1%
