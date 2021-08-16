@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
+//TODO
+//Uncomment the ether part in the mint function, since it is disabled for testing
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -52,7 +54,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         require(!_paused, "Minting is paused!");
         require(_amount < 21, "20 Dinos max!");
         require(supply + _amount < 10000 - _herd, "Supply exceeded!"); // 200 for giveaways and airdrops
-        require(msg.value >= _price * _amount, "Insufficient ETH!");
+        //require(msg.value >= _price * _amount, "Insufficient ETH!");
 
         for (uint256 i; i < _amount; i++) {
             _safeMint(msg.sender, supply + i);
