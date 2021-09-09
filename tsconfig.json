@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["./scripts", "./test", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["./scripts", "./test", "next-env.d.ts", "**/*.ts", "**/*.tsx", "components/navbar.js"],
   "exclude": ["node_modules"],
   "files": ["./hardhat.config.ts"]
 }
