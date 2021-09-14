@@ -3,7 +3,7 @@ services:
   web:
     build: .
     restart: always
-    command: bash -c "yarn  && yarn dev"
+    command: bash -c "yarn && yarn dev"
     volumes:
       - .:/usr/app
       - /usr/app/node_modules

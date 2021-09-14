@@ -1,11 +1,15 @@
-import { HardhatUserConfig } from 'hardhat/types';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-etherscan';
 import '@typechain/hardhat';
+import 'hardhat-deploy';
 
-const INFURA_URL = "INFURA ENDPOINT";
-const PRIVATE_KEY = "PRIVATE KEY FROM THE WALLET THAT DEPLOYS THE CONTRACT";
+import * as dotenv from 'dotenv';
+import { HardhatUserConfig } from 'hardhat/types';
+
+dotenv.config();
+
+const { DEPLOYER_PRIVATE_KEY, INFURA_PROJECT_ID, ETHERSCAN_API_KEY } = process.env;
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -13,16 +17,20 @@ const config: HardhatUserConfig = {
   },
   networks: {
     rinkeby: {
-      url: INFURA_URL,
-      accounts: [`0x${PRIVATE_KEY}`]
+      url: `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`,
+      chainId: 4,
+      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`]
     },
   },
   etherscan: {
-    apiKey: "ETHERSCAN API KEY"
+    apiKey: ETHERSCAN_API_KEY
   },
   typechain: {
     outDir: 'src/types',
     target: 'ethers-v5',
-  }
+  },  
+  namedAccounts: {
+    deployer: 0,
+  },
 };
 export default config;

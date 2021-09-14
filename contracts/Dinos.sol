@@ -10,42 +10,40 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 // TODO breeding contract
 // TODO comet shards contract
-//TODO Uncomment the ether part in the mint function, since it is disabled for testing
+// TODO Uncomment the ether part in the mint function, since it is disabled for testing
 // TODO ipfs provenance hash (?)
 // TODO decide final %
 contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
     using SafeMath for uint256;
     string private _baseTokenURI;
     uint private _price;
-    uint private _herd; // for giveaways
+    uint private _reserved; // for giveaways
     bool private _paused;
 
-    address king = 0xD7E4A8E47f9645A0a7594a343Ff13859EFE7FcC1;
-    address larienne = 0xf3644FeD397f1531833d23166cC3B82c90CaacA6;
-    address suesanne = 0x5e4165149c77BcE857585789daFDf6F54Bc34650;
-    address moikapy = 0xa8D145Dd3003817dA1DC83F838Ee5088B65Acf2e;
-    address tai = 0xf59BACCBAcFA9c87970A6cCd52aF8DfDF87dFf1c;
-    address lukas = 0x00Ec891371BBD69d4cc75F6a55DcD9792a6f0Be6;
-    address jenk = 0x262456d9a98537f4706324666B28Bfa4E9D23446;
-    address etra = 0x67B70Cd9E2926f901F55AC2D34d0652Be975cD4e;
-    address elmnt = 0x1ddaB7A7E4F1c7A75a6B704C9D26cf7Bb294a67d;
+    address[9] founders;
+    
 
     constructor(string memory baseURI) ERC721("Dawn of the Dinos", "DOTD") {
         setBaseURI(baseURI);
 
-        // 1 Dino for each team member.
-        _safeMint(elmnt, 0);
-        _safeMint(jenk, 1);
-        _safeMint(etra, 2);
-        _safeMint(tai, 3);
-        _safeMint(lukas, 4);
-        _safeMint(moikapy, 5);
-        _safeMint(larienne, 6);
-        _safeMint(suesanne, 7);
-        _safeMint(king, 8);
+        founders = [    
+            0x0401d74a191300EE85FF3C5179Ff1f7Dd151d19B, // ceylon
+            0xf3644FeD397f1531833d23166cC3B82c90CaacA6, // larienne
+            0x5e4165149c77BcE857585789daFDf6F54Bc34650, // suesanne
+            0xa8D145Dd3003817dA1DC83F838Ee5088B65Acf2e, // moikapy
+            0xf59BACCBAcFA9c87970A6cCd52aF8DfDF87dFf1c, // tai
+            0x00Ec891371BBD69d4cc75F6a55DcD9792a6f0Be6, // lukas
+            0x262456d9a98537f4706324666B28Bfa4E9D23446, // jenk
+            0x67B70Cd9E2926f901F55AC2D34d0652Be975cD4e, // etra
+            0x1ddaB7A7E4F1c7A75a6B704C9D26cf7Bb294a67d  // elmnt
+        ];
+
+        for (uint i = 0; i < 9; i++) {
+            _safeMint(founders[i], i);
+        }
 
         _price = 0.065 ether;
-        _herd = 200;
+        _reserved = 200;
         _paused = true;
     }
 
@@ -53,7 +51,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         uint256 supply = totalSupply();
         require(!_paused, "Minting is paused!");
         require(_amount < 21, "20 Dinos max!");
-        require(supply + _amount < 10000 - _herd, "Supply exceeded!"); // 200 for giveaways and airdrops
+        require(supply + _amount < 10000 - _reserved, "Supply exceeded!"); // 200 for giveaways and airdrops
         //require(msg.value >= _price * _amount, "Insufficient ETH!");
 
         for (uint256 i; i < _amount; i++) {
@@ -62,14 +60,14 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
     }
 
     function mintTo(address _to, uint256 _amount) external onlyOwner() {
-        require( _amount <= _herd, "Herd is too small!" );
+        require( _amount <= _reserved, "Herd is too small!" );
 
         uint256 supply = totalSupply();
         for(uint256 i; i < _amount; i++){
-            _safeMint( _to, supply + i );
+            _safeMint( _to, supply + i );   
         }
 
-        _herd -= _amount;
+        _reserved -= _amount;
     }
 
     function pause(bool _value) public onlyOwner {
@@ -80,20 +78,18 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         return _price;
     }
 
-
     function withdrawBalance() public payable onlyOwner {
-        require(address(this).balance > 0);
-        require(payable(king).send(address(this).balance.div(100))); // 1%
-
+        require(address(this).balance > 0);        
+        payable(founders[0]).transfer(address(this).balance.div(100)); // 1%
         uint256 balance = address(this).balance;
-        payable(larienne).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(suesanne).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(moikapy).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(tai).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(lukas).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(jenk).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(etra).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
-        payable(elmnt).transfer(address(this).balance); // >= 12.5% (1/8th)
+        payable(founders[1]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[2]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[3]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[4]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[5]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[6]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[7]).transfer(balance.mul(125).div(1000)); // 12.5% (1/8th)
+        payable(founders[8]).transfer(address(this).balance); // >= 12.5% (1/8th)
     }
 
     function walletOfOwner(address _owner)

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-etherscan": "^2.1.4",
+    "dotenv": "^10.0.0",
     "ethers": "^5.4.2",
     "next": "11.0.1",
     "react": "17.0.2",
@@ -31,6 +32,7 @@
     "eslint-config-next": "11.0.1",
     "ethereum-waffle": "^3.4.0",
     "hardhat": "^2.5.0",
+    "hardhat-deploy": "^0.8.11",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
