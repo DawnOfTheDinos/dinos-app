@@ -12,6 +12,7 @@
   "dependencies": {
     "@nomiclabs/hardhat-etherscan": "^2.1.4",
     "dotenv": "^10.0.0",
+    
     "bootstrap": "^5.1.0",
     "ethers": "^5.4.2",
     "next": "11.0.1",
