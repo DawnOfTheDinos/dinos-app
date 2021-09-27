@@ -2,43 +2,46 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
 // TODO breeding contract
 // TODO comet shards contract
 // TODO Uncomment the ether part in the mint function, since it is disabled for testing
 // TODO ipfs provenance hash (?)
 // TODO decide final %
-contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
-    using SafeMath for uint256;
+contract DawnOfTheDinos is ERC721Upgradeable, ERC721EnumerableUpgradeable, OwnableUpgradeable {
+    using SafeMathUpgradeable for uint256;
     string private _baseTokenURI;
     uint private _price;
     uint private _reserved; // for giveaways
     bool private _paused;
 
-    address[9] founders;
+    address[10] founders;
     
 
-    constructor(string memory baseURI) ERC721("Dawn of the Dinos", "DOTD") {
+    function initialize(string memory baseURI) initializer public {
+        __ERC721_init("Dawn of the Dinos", "DOTD");
+
         setBaseURI(baseURI);
 
         founders = [    
             0x0401d74a191300EE85FF3C5179Ff1f7Dd151d19B, // ceylon
+            0xA848E0A67DdBE7c3d62c578cC1A6873Af140dFd7, // artemis
             0xf3644FeD397f1531833d23166cC3B82c90CaacA6, // larienne
             0x5e4165149c77BcE857585789daFDf6F54Bc34650, // suesanne
-            0xa8D145Dd3003817dA1DC83F838Ee5088B65Acf2e, // moikapy
+            0x71D1272C2357bbb6a3C0E8aCE1AB84374a6426D9, // moikapy
             0xf59BACCBAcFA9c87970A6cCd52aF8DfDF87dFf1c, // tai
             0x00Ec891371BBD69d4cc75F6a55DcD9792a6f0Be6, // lukas
             0x262456d9a98537f4706324666B28Bfa4E9D23446, // jenk
             0x67B70Cd9E2926f901F55AC2D34d0652Be975cD4e, // etra
-            0x1ddaB7A7E4F1c7A75a6B704C9D26cf7Bb294a67d  // elmnt
+            0x1ddaB7A7E4F1c7A75a6B704C9D26cf7Bb294a67d  // JD
         ];
 
-        for (uint i = 0; i < 9; i++) {
+        for (uint i = 0; i < 10; i++) {
             _safeMint(founders[i], i);
         }
 
@@ -60,7 +63,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
     }
 
     function mintTo(address _to, uint256 _amount) external onlyOwner() {
-        require( _amount <= _reserved, "Herd is too small!" );
+        require( _amount <= _reserved, "Amount exceeds reserve!" );
 
         uint256 supply = totalSupply();
         for(uint256 i; i < _amount; i++){
@@ -119,7 +122,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         address from,
         address to,
         uint256 tokenId
-    ) internal virtual override(ERC721, ERC721Enumerable) {
+    ) internal virtual override(ERC721Upgradeable, ERC721EnumerableUpgradeable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
@@ -127,7 +130,7 @@ contract DawnOfTheDinos is ERC721, ERC721Enumerable, Ownable {
         public
         view
         virtual
-        override(ERC721, ERC721Enumerable)
+        override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
